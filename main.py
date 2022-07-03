@@ -15,7 +15,7 @@ class Game:
     if self.end > 0:
       raise Exception("game has ended")
     if self.C[target_c][0] != 0:
-      raise Exception("out of space in col " + target_c);
+      raise Exception("out of space in col " + str(target_c));
     for r in range(len(self.C[target_c])):
       if self.C[target_c][r] != 0:
         self.C[target_c][r-1] = self.next
