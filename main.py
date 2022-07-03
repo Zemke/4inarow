@@ -9,9 +9,12 @@ class Game:
     # 7x6
     self.C = [[0 for _ in range(NR)] for _ in range(NC)]
     self.next = 1
+    self.end = self._end()
 
 
   def drop(self, target_c):
+    if self.end > 0:
+      raise Exception("game has ended")
     if self.C[target_c][0] != 0:
       raise Exception("out of space in col " + target_c);
     for r in range(len(self.C[target_c])):
@@ -22,9 +25,10 @@ class Game:
         self.C[target_c][r] = self.next
         break
     self.next = 1 if self.next == 2 else 2
+    self.end = self._end()
 
 
-  def end(self):
+  def _end(self):
     # horizontally
     on_count, count = None, 0
     for r in range(NR):
@@ -91,16 +95,13 @@ class Game:
       for c in range(NC):
         s += str(self.C[c][r])
       s += "\n"
-    s += str(self.next) + "\n"
+    s += f"next:{self.next} end:{self.end}\n"
     return s
 
 
 g = Game()
-print(g)
-
-tt = [1,3,1,3,1,3,1]
+tt = [0,1,1,2,2,3,3,3,2,5,3]
 for t in tt:
   g.drop(t)
-  print('end', g.end())
   print(g)
 
