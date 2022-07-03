@@ -22,14 +22,7 @@ class Game:
 
 
   def end(self):
-    nomoremoves = True
-    for r in range(len(self.C[0])):
-      for c in range(len(self.C)):
-        if self.C[c][r] == 0:
-          nomoremoves = False
-          break
-    if nomoremoves:
-      return -1
+    # horizontally
     on_count, count = None, 0
     for r in range(len(self.C[0])):
       for c in range(len(self.C)):
@@ -45,6 +38,23 @@ class Game:
           if count == 4:
             return on_count
 
+    # vertically
+    on_count, count = None, 0
+    for c in range(len(self.C)):
+      for r in range(len(self.C[c])):
+        if self.C[c][r] == 0:
+          on_count = None
+          count = 0
+        else:
+          if self.C[c][r] == on_count:
+            count += 1
+          else:
+            on_count = self.C[c][r]
+            count = 1
+          if count == 4:
+            return on_count
+        
+
 
   def __repr__(self):
     s = ''
@@ -59,7 +69,7 @@ class Game:
 g = Game()
 print(g)
 
-tt = [0,0,1,0,2,0,3]
+tt = [1,3,1,3,1,3,1]
 for t in tt:
   g.drop(t)
   print('end', g.end())
