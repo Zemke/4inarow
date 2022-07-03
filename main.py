@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 
+# num of cols, num of rows
+NC, NR = 7, 6
+
 class Game:
 
   def __init__(self):
     # 7x6
-    self.C = [[0 for _ in range(6)] for _ in range(7)]
+    self.C = [[0 for _ in range(NR)] for _ in range(NC)]
     self.next = 1
 
 
@@ -24,7 +27,7 @@ class Game:
   def end(self):
     # horizontally
     on_count, count = None, 0
-    for r in range(len(self.C[0])):
+    for r in range(NR):
       for c in range(len(self.C)):
         if self.C[c][r] == 0:
           on_count = None
@@ -40,8 +43,8 @@ class Game:
 
     # vertically
     on_count, count = None, 0
-    for c in range(len(self.C)):
-      for r in range(len(self.C[c])):
+    for c in range(NC):
+      for r in range(NR):
         if self.C[c][r] == 0:
           on_count = None
           count = 0
@@ -58,8 +61,8 @@ class Game:
 
   def __repr__(self):
     s = ''
-    for r in range(len(self.C[0])):
-      for c in range(len(self.C)):
+    for r in range(NR):
+      for c in range(NC):
         s += str(self.C[c][r])
       s += "\n"
     s += str(self.next) + "\n"
