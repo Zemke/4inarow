@@ -56,7 +56,33 @@ class Game:
             count = 1
           if count == 4:
             return on_count
-        
+
+    # diagonally
+    for c in range(NC):
+      for r in range(NR):
+        if self.C[c][r] != 0:
+          for diag in self.diags(c, r):
+            if diag.count(self.C[c][r]) == 4:
+              return self.C[c][r]
+
+    return 0
+
+
+  def safe(self, c, r):
+    if c < 0 or r < 0:
+      return None
+    if c >= NC or r >= NR:
+      return None
+    return self.C[c][r]
+
+
+  def diags(self, c, r):
+    return [
+      [self.safe(c+i, r+i) for i in range(4)],
+      [self.safe(c-i, r-i) for i in range(4)],
+      [self.safe(c-i, r+i) for i in range(4)],
+      [self.safe(c+i, r-i) for i in range(4)]
+    ]
 
 
   def __repr__(self):
