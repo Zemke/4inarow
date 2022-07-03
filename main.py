@@ -99,8 +99,12 @@ class Game:
 
 
 g = Game()
-tt = [0,1,1,2,2,3,3,3,2,5,3]
-for t in tt:
+while g.end <= 0:
+  try:
+    t = int(input('col: '))
+  except e:
+    print('invalid input')
+    continue
   g.drop(t)
   print(g)
 
