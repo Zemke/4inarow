@@ -102,9 +102,9 @@ g = Game()
 while g.end <= 0:
   try:
     t = int(input('col: '))
-  except e:
-    print('invalid input')
+    g.drop(t)
+  except Exception as e:
+    print('invalid input:', e)
     continue
-  g.drop(t)
   print(g)
 
