@@ -6,7 +6,6 @@ NC, NR = 7, 6
 class Game:
 
   def __init__(self):
-    # 7x6
     self.C = [[0 for _ in range(NR)] for _ in range(NC)]
     self.next = 1
     self.end = self._end()
