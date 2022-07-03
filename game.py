@@ -64,14 +64,14 @@ class Game:
     for c in range(NC):
       for r in range(NR):
         if self.C[c][r] != 0:
-          for diag in self.diags(c, r):
+          for diag in self._diags(c, r):
             if diag.count(self.C[c][r]) == 4:
               return self.C[c][r]
 
     return 0
 
 
-  def safe(self, c, r):
+  def _safe(self, c, r):
     if c < 0 or r < 0:
       return None
     if c >= NC or r >= NR:
@@ -79,12 +79,12 @@ class Game:
     return self.C[c][r]
 
 
-  def diags(self, c, r):
+  def _diags(self, c, r):
     return [
-      [self.safe(c+i, r+i) for i in range(4)],
-      [self.safe(c-i, r-i) for i in range(4)],
-      [self.safe(c-i, r+i) for i in range(4)],
-      [self.safe(c+i, r-i) for i in range(4)]
+      [self._safe(c+i, r+i) for i in range(4)],
+      [self._safe(c-i, r-i) for i in range(4)],
+      [self._safe(c-i, r+i) for i in range(4)],
+      [self._safe(c+i, r-i) for i in range(4)]
     ]
 
 
@@ -98,13 +98,10 @@ class Game:
     return s
 
 
-g = Game()
-while g.end <= 0:
-  try:
-    t = int(input('col: '))
-    g.drop(t)
-  except Exception as e:
-    print('invalid input:', e)
-    continue
-  print(g)
+  def copy(self, ):
+    g = Game()
+    g.next = self.next
+    g.end = self.end
+    g.C = [[self.C[c][r] for r in range(NR)] for c in range(NC)]
+    return g
 
