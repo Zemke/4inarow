@@ -4,7 +4,7 @@ from math import inf
 from game import Game
 
 # 1 is minimizing
-def minimax(G, depth, maximizing, ret=True):
+def minimax(G, depth, maximizing, a=-inf, b=+inf, ret=True):
   if depth == 0 or G.end > 0:
     if G.end == 2:
       return +inf
@@ -15,10 +15,18 @@ def minimax(G, depth, maximizing, ret=True):
   v = -inf if maximizing else +inf
   vmv = None
   for c,g in poss_mvv(G):
-    nv = minimax(g, depth-1, not maximizing, False)
+    nv = minimax(g, depth-1, not maximizing, a, b, False)
     if (maximizing and v < nv) or (not maximizing and v > nv):
       v = nv
       vmv = c,g
+    if maximizing:
+      a = max(a, v)
+      if v >= b:
+        break
+    else:
+      b = min(b, v)
+      if v <= a:
+        break
   return vmv[0] if ret else v
 
 
@@ -41,7 +49,7 @@ if __name__ == "__main__":
     g.drop(t)
   print(g)
 
-  c = minimax(g, 5, False)
+  c = minimax(g, 8, False)
   g.drop(c)
   print(g, c)
 
