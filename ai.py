@@ -20,7 +20,7 @@ def minimax(G, depth, maximizing, ret=True):
     if (maximizing and v < nv) or (not maximizing and v > nv):
       v = nv
       vmv = c,g
-  return (v,vmv) if ret else v
+  return vmv[0] if ret else v
 
 
 def poss_mvv(G):
@@ -42,6 +42,7 @@ if __name__ == "__main__":
     g.drop(t)
   print(g)
 
-  v,(c,g1) = minimax(g, 5, False)
-  print(g1, c)
+  c = minimax(g, 5, False)
+  g.drop(c)
+  print(g, c)
 
