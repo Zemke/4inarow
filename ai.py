@@ -12,7 +12,6 @@ def minimax(G, depth, maximizing, ret=True):
       return -inf
     else:
       return 0  # TODO heuristic
-  v, vmv = -inf, None
   v = -inf if maximizing else +inf
   vmv = None
   for c,g in poss_mvv(G):
