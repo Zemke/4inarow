@@ -9,6 +9,7 @@ class Game:
     self.C = [[0 for _ in range(NR)] for _ in range(NC)]
     self.next = 1
     self.end = self._end()
+    self.last = None
 
 
   def drop(self, target_c):
@@ -19,9 +20,11 @@ class Game:
     for r in range(len(self.C[target_c])):
       if self.C[target_c][r] != 0:
         self.C[target_c][r-1] = self.next
+        self.last = target_c,r-1
         break
       if r == 5:
         self.C[target_c][r] = self.next
+        self.last = target_c,r
         break
     self.next = 1 if self.next == 2 else 2
     self.end = self._end()
@@ -92,7 +95,12 @@ class Game:
     s = ''
     for r in range(NR):
       for c in range(NC):
+        last = self.last == (c,r)
+        if last:
+          s += '\033[1m'
         s += str(self.C[c][r])
+        if last:
+          s += '\033[0m'
       s += "\n"
     s += f"next:{self.next} end:{self.end}\n"
     return s
