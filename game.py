@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 
+from os import environ
+
 # num of cols, num of rows
 NC, NR = 7, 6
+
+set_color = environ.get('CLICOLOR', '0') == '1'
+
 
 class Game:
 
@@ -95,18 +100,20 @@ class Game:
     s = ''
     for r in range(NR):
       for c in range(NC):
-        last = self.last == (c,r)
-        if last:
-          s += '\033[1m'
-        if self.C[c][r] == 1:
-          s += '\033[92m'
-        elif self.C[c][r] == 2:
-          s += '\033[91m'
+        if set_color:
+          last = self.last == (c,r)
+          if last:
+            s += '\033[1m'
+          if self.C[c][r] == 1:
+            s += '\033[92m'
+          elif self.C[c][r] == 2:
+            s += '\033[91m'
         s += str(self.C[c][r])
-        if self.C[c][r] == 1 or self.C[c][r] == 2:
-          s += '\033[0m'
-        if last:
-          s += '\033[0m'
+        if set_color:
+          if self.C[c][r] == 1 or self.C[c][r] == 2:
+            s += '\033[0m'
+          if last:
+            s += '\033[0m'
       s += "\n"
     s += f"next:{self.next} end:{self.end}\n"
     return s
