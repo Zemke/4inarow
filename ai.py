@@ -49,7 +49,7 @@ if __name__ == "__main__":
     g.drop(t)
   print(g)
 
-  c = minimax(g, 8, False)
+  c = minimax(g, 100, False)
   g.drop(c)
   print(g, c)
 
