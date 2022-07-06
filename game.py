@@ -98,7 +98,13 @@ class Game:
         last = self.last == (c,r)
         if last:
           s += '\033[1m'
+        if self.C[c][r] == 1:
+          s += '\033[92m'
+        elif self.C[c][r] == 2:
+          s += '\033[91m'
         s += str(self.C[c][r])
+        if self.C[c][r] == 1 or self.C[c][r] == 2:
+          s += '\033[0m'
         if last:
           s += '\033[0m'
       s += "\n"
